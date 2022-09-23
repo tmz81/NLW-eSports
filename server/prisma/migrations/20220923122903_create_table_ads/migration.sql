@@ -13,8 +13,8 @@ CREATE TABLE "Ad" (
     "yearPlaying" INTEGER NOT NULL,
     "discord" TEXT NOT NULL,
     "weekDays" TEXT NOT NULL,
-    "hoursStart" INTEGER NOT NULL,
-    "hoursEnd" INTEGER NOT NULL,
+    "hourStart" INTEGER NOT NULL,
+    "hourEnd" INTEGER NOT NULL,
     "useVoiceChannel" BOOLEAN NOT NULL,
     "createAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT "Ad_gameId_fkey" FOREIGN KEY ("gameId") REFERENCES "Game" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
