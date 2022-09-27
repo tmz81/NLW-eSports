@@ -2,6 +2,8 @@ import logoImg from "./assets/logo-nlw.svg";
 import { GameBanner } from "./components/GameBanner";
 import { CreateAdBanner } from "./components/CreateAdBanner";
 import { useEffect, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Input } from "./components/Form/Input";
 
 interface Game {
   id: string;
@@ -13,6 +15,7 @@ interface Game {
 }
 
 function App() {
+  console.log('Render');
   const [games, setGames] = useState<Game[]>([]);
 
   useEffect(() => {
@@ -33,6 +36,7 @@ function App() {
         {games.map(game => {
           return (
             <GameBanner 
+              key={game.id}
               bannerUlr={game.bannerUrl} 
               title={game.title} 
               adsCount={game._count.ads}
@@ -41,7 +45,42 @@ function App() {
         })}
       </div> 
 
-      <CreateAdBanner />
+      <Dialog.Root>
+        <CreateAdBanner />
+
+        <Dialog.Portal>
+          <Dialog.Overlay className="bg-black/60 inset-0 fixed"/>
+
+          <Dialog.Content className="fixed 
+          bg-[#2A2634] py-8 px-10 text-white 
+          top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+          rounded-lg w-[480px] shadow-lg shadow-black/25">
+            <Dialog.Title className="text-3xl font-black">Publique um anúncio</Dialog.Title>
+
+            <form className="mt-8 flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="game" className="font-semibold">Qual é o game?</label>
+                <Input type="text" placeholder="Selecione o game que deseja jogar"/>
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="game">Seu nickname</label>
+                <Input type="text" placeholder="Como te chamam dentro do game?"/>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="yearPlaying">Joga há quantos anos?</label>
+                  <Input type="text" placeholder="Tudo bem ser 0"/>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="discord">Qual seu Discord</label>
+                  <Input type="text" placeholder="Usuário#0000"/>
+                </div>
+              </div>
+            </form>
+
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }
